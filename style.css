@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: #ffd6b9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  background: #ffe0c7;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 900px;
+  height: 600px;
+}
+
+.login-card {
+  width: 400px;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0%;
+}
+
+.logo {
+  height: 60px;
+}
+
+.login-card h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  background: white;
+  transition: 0.3s;
+}
+
+.login-card input:focus {
+  border-color: #fc6c1d;
+  box-shadow: 0 0 5px rgba(252, 108, 29, 0.4);
+}
+
+.forgot {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: #a5542f;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+.login-btn {
+  background: #fc6c1d;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-btn:hover {
+  background: #e65b15;
+}
+
+.or {
+  text-align: center;
+  margin: 15px 0;
+  color: #777;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.social {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.social img {
+  width: 20px;
+  height: 20px;
+}
+
+.social:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.register {
+  font-size: 14px;
+  text-align: center;
+  color: #333;
+}
+
+.register a {
+  color: #fc6c1d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register a:hover {
+  text-decoration: underline;
+}
+
+.image-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.image-box img {
+  max-width: 100%;
+  max-height: 90%;
+  object-fit: contain;
+}
+.switch-page {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.switch-page a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #fc6c1d;
+  font-weight: bold;
+}
+
+.switch-page a:hover {
+  text-decoration: underline;
+}
