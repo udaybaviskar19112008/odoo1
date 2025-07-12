@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .tag {
+      @apply flex items-center gap-2 px-4 py-1 border border-orange-500 text-orange-600 bg-white rounded-full text-sm font-semibold cursor-pointer hover:bg-orange-100 transition-all duration-300 transform hover:scale-105 shadow-sm;
+    }
+
+    .remove {
+      @apply text-orange-400 hover:text-red-500 font-bold text-lg leading-none cursor-pointer transition duration-200;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.3s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-orange-100 via-pink-100 to-yellow-200 min-h-screen p-10 text-gray-800">
+
+  <!-- Navigation Bar -->
+  <nav class="mb-6">
+    <a href="home.html" class="inline-block bg-orange-500 text-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 transition">← Back to Home</a>
+  </nav>
+
+  <!-- Profile Container -->
+  <div class="max-w-7xl mx-auto bg-white/40 backdrop-blur-md shadow-xl rounded-3xl p-10 flex flex-col lg:flex-row gap-10">
+
+    <!-- Profile Summary -->
+    <div class="lg:w-1/3 bg-white/60 rounded-2xl p-6 shadow-lg flex flex-col items-center text-center">
+      <img src="https://via.placeholder.com/150" class="w-36 h-36 rounded-full border-4 border-white shadow-lg mb-4" alt="User"/>
+      <h2 class="text-2xl font-bold text-gray-800">John Doe</h2>
+      <p class="text-sm text-gray-500">USA</p>
+      <div class="mt-4 flex gap-4">
+        <button class="bg-orange-500 text-white px-5 py-2 rounded-full hover:bg-orange-600 transition">Edit</button>
+        <button class="text-red-500 font-semibold hover:underline transition">Remove</button>
+      </div>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="flex-1 space-y-8">
+
+      <!-- Name -->
+      <div>
+        <label class="block text-lg font-medium text-gray-900 mb-1">Name</label>
+        <input type="text" value="John Doe" placeholder="Enter your name"
+          class="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition"/>
+      </div>
+
+      <!-- Location -->
+      <div>
+        <label class="block text-lg font-medium text-gray-900 mb-1">Location</label>
+        <input type="text" value="USA" placeholder="Enter your location"
+          class="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition"/>
+      </div>
+
+      <!-- Skills Offered -->
+      <div>
+        <label class="block text-lg font-semibold text-gray-800 mb-2">Skills Offered</label>
+        <div id="offered-tags" class="flex flex-wrap gap-2 mb-3"></div>
+        <div class="flex gap-2">
+          <input id="offered-input" type="text" placeholder="Add skill and press Enter or click Add"
+            class="flex-1 p-3 border rounded-xl shadow-sm" onkeydown="handleEnter(event, 'offered')"/>
+          <button onclick="addCustomSkill('offered')" class="bg-orange-500 text-white px-4 py-2 rounded-xl hover:bg-orange-600 transition">Add</button>
+        </div>
+      </div>
+
+      <!-- Skills Wanted -->
+      <div>
+        <label class="block text-lg font-semibold text-gray-800 mb-2">Skills Wanted</label>
+        <div id="wanted-tags" class="flex flex-wrap gap-2 mb-3"></div>
+        <div class="flex gap-2">
+          <input id="wanted-input" type="text" placeholder="Add skill and press Enter or click Add"
+            class="flex-1 p-3 border rounded-xl shadow-sm" onkeydown="handleEnter(event, 'wanted')"/>
+          <button onclick="addCustomSkill('wanted')" class="bg-orange-500 text-white px-4 py-2 rounded-xl hover:bg-orange-600 transition">Add</button>
+        </div>
+      </div>
+
+      <!-- Availability and Visibility -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-lg font-medium text-gray-900 mb-1">Availability</label>
+          <select class="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition">
+            <option selected disabled>Select availability</option>
+            <option>Daily</option>
+            <option>Weekends</option>
+            <option>Weekly</option>
+            <option>Monthly</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-lg font-medium text-gray-900 mb-1">Profile Visibility</label>
+          <select class="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition">
+            <option selected disabled>Select visibility</option>
+            <option>Public</option>
+            <option>Private</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex space-x-6 pt-4">
+        <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl shadow-lg transition">Save</button>
+        <button class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-xl shadow-lg transition">Discard</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const offeredSkills = ["Graphic Design", "Video Editing", "Photoshop"];
+    const wantedSkills = ["Python", "JavaScript", "Manager"];
+
+    window.onload = () => {
+      renderTags("offered", offeredSkills);
+      renderTags("wanted", wantedSkills);
+    };
+
+    function renderTags(type, skills) {
+      const container = document.getElementById(`${type}-tags`);
+      container.innerHTML = "";
+      skills.forEach(skill => {
+        const tag = document.createElement("div");
+        tag.className = "tag group";
+        tag.innerHTML = `
+          <span onclick="selectSkill('${type}', '${skill}')">${skill}</span>
+          <span class="remove" onclick="removeSkill('${type}', '${skill}', this)">&times;</span>
+        `;
+        container.appendChild(tag);
+      });
+    }
+
+    function selectSkill(type, skill) {
+      const input = document.getElementById(`${type}-input`);
+      input.value = skill;
+    }
+
+    function removeSkill(type, skill, el) {
+      const list = type === "offered" ? offeredSkills : wantedSkills;
+      const index = list.indexOf(skill);
+      if (index !== -1) {
+        list.splice(index, 1);
+        const tagEl = el.closest(".tag");
+        tagEl.classList.add("fade-out");
+        setTimeout(() => renderTags(type, list), 300);
+      }
+    }
+
+    function addCustomSkill(type) {
+      const input = document.getElementById(`${type}-input`);
+      const value = input.value.trim();
+      if (value) {
+        const list = type === "offered" ? offeredSkills : wantedSkills;
+        if (!list.includes(value)) {
+          list.push(value);
+          renderTags(type, list);
+        }
+        input.value = "";
+      }
+    }
+
+    function handleEnter(e, type) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addCustomSkill(type);
+      }
+    }
+  </script>
+</body>
+</html>
